@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(messenger LANGUAGES CXX)
+project(calculator LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
-add_executable(messenger
+add_executable(calculator
     main.cpp
     mainwindow.cpp
     mainwindow.h
@@ -23,4 +23,4 @@ add_executable(messenger
     basic.ui
 )
 
-target_link_libraries(messenger PRIVATE Qt5::Widgets)
+target_link_libraries(calculator PRIVATE Qt5::Widgets)
