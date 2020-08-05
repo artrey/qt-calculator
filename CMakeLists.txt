@@ -18,9 +18,14 @@ add_executable(calculator
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
-    basic.h
-    basic.cpp
-    basic.ui
+    base_calculator.h
+    base_calculator.cpp
+    advanced_calculator.h
+    advanced_calculator.cpp
+    advanced_calculator.ui
+    basic_calculator.h
+    basic_calculator.cpp
+    basic_calculator.ui
 )
 
 target_link_libraries(calculator PRIVATE Qt5::Widgets)

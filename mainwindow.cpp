@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "basic.h"
+#include "basic_calculator.h"
+#include "advanced_calculator.h"
 
 #include <cmath>
 
@@ -13,9 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->userInput->setValidator(new QDoubleValidator);
     ui->labelResult->setText(QString::number(m_result));
-    auto basic = new Basic(this);
-    ui->centralwidget->layout()->addWidget(basic);
-    QObject::connect(basic, &Basic::calcRequested, this, &MainWindow::makeAction);
+
+    updateCalculator(new BasicCalculator(this));
 
     qDebug() << "MainWindow constructor";
 }
@@ -32,6 +32,14 @@ void MainWindow::makeAction(const QString &action)
     {
         m_result += ui->userInput->text().toDouble();
     }
+    else if (action == "-")
+    {
+        m_result -= ui->userInput->text().toDouble();
+    }
+    else if (action == "1/x")
+    {
+        m_result = 1 / m_result;
+    }
     updateState();
 }
 
@@ -42,57 +50,25 @@ void MainWindow::updateState()
     ui->userInput->setFocus();
 }
 
-//void MainWindow::on_btnPlus_clicked()
-//{
-//}
+void MainWindow::updateCalculator(BaseCalculator *calc)
+{
+    QObject::disconnect(m_calc.get(), &BaseCalculator::calcRequested, this, &MainWindow::makeAction);
+    m_calc.reset(calc);
+    ui->centralwidget->layout()->addWidget(m_calc.get());
+    QObject::connect(m_calc.get(), &BaseCalculator::calcRequested, this, &MainWindow::makeAction);
+}
 
-//void MainWindow::on_btnMinus_clicked()
-//{
-//    m_result -= ui->userInput->text().toDouble();
-//    updateState();
-//}
+void MainWindow::on_actionExit_triggered()
+{
+    qApp->exit();
+}
 
-//void MainWindow::on_btnMult_clicked()
-//{
-//    m_result *= ui->userInput->text().toDouble();
-//    updateState();
-//}
+void MainWindow::on_actionBasic_triggered()
+{
+    updateCalculator(new BasicCalculator(this));
+}
 
-//void MainWindow::on_btnDiv_clicked()
-//{
-//    if (std::abs(ui->userInput->text().toDouble()) < 10e-6)
-//    {
-//        ui->labelResult->setText("Error: dividing by zero");
-//        return;
-//    }
-//    m_result /= ui->userInput->text().toDouble();
-//    updateState();
-//}
-
-//void MainWindow::on_btnSqr_clicked()
-//{
-//    m_result *= m_result;
-//    updateState();
-//}
-
-//void MainWindow::on_btnSqrt_clicked()
-//{
-//    if (m_result < 0)
-//    {
-//        ui->labelResult->setText("Error: current value is negative");
-//        return;
-//    }
-//    m_result = std::sqrt(m_result);
-//    updateState();
-//}
-
-//void MainWindow::on_btnClear_clicked()
-//{
-//    m_result = 0;
-//    updateState();
-//}
-
-//void MainWindow::on_btnCalc_clicked()
-//{
-
-//}
+void MainWindow::on_actionAdvanced_triggered()
+{
+    updateCalculator(new AdvancedCalculator(this));
+}
