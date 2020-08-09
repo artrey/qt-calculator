@@ -142,10 +142,7 @@ void MainWindow::on_actionAdvanced_triggered()
     updateCalculator(new AdvancedCalculator(this));
 }
 
-
-
 void MainWindow::on_actionProgram_triggered()
 {
     updateCalculator(new ProgrammerCalculator(this));
-
 }

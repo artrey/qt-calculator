@@ -13,7 +13,3 @@ ProgrammerCalculator::~ProgrammerCalculator()
 {
     delete ui;
 }
-
-
-
-
