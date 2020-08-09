@@ -22,6 +22,7 @@ private slots:
     void on_actionExit_triggered();
     void on_actionBasic_triggered();
     void on_actionAdvanced_triggered();
+    void on_actionProgram_triggered();
 
 private:
     void updateState();
