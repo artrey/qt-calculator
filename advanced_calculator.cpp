@@ -12,3 +12,4 @@ AdvancedCalculator::~AdvancedCalculator()
 {
     delete ui;
 }
+

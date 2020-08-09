@@ -15,6 +15,7 @@ public:
     explicit AdvancedCalculator(QWidget *parent = nullptr);
     ~AdvancedCalculator();
 
+
 private:
     Ui::AdvancedCalculator *ui;
 };

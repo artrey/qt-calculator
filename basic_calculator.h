@@ -19,4 +19,5 @@ private:
     Ui::BasicCalculator *ui;
 };
 
+
 #endif // BASIC_H

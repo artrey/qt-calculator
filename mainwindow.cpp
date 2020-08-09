@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include "basic_calculator.h"
 #include "advanced_calculator.h"
+#include "programmer_calculator.h"
 
 #include <cmath>
 
@@ -36,10 +37,78 @@ void MainWindow::makeAction(const QString &action)
     {
         m_result -= ui->userInput->text().toDouble();
     }
+    else if (action == "*")
+    {
+        m_result *= ui->userInput->text().toDouble();
+    }
+    else if (action == "/")
+    {
+        m_result /= ui->userInput->text().toDouble();
+    }
+    else if (action == "sqr")
+    {
+        m_result *= m_result;
+    }
+    else if (action == "sqrt")
+    {
+        m_result = std::sqrt(m_result);
+    }
+    else if (action == "!")
+    {
+        for (int i = m_result - 1; i > 1; i--)
+        {
+            m_result *= i;
+        }
+    }
+    else if (action == "%")
+    {
+        m_result = static_cast<int>(m_result) % (static_cast<int>((ui->userInput->text().toDouble())));
+    }
+    else if (action == "log")
+    {
+        m_result = std::log2(m_result);
+    }
+
     else if (action == "1/x")
     {
         m_result = 1 / m_result;
     }
+
+    else if (action == "^")
+    {
+        m_result = static_cast<int>(m_result) ^ static_cast<int>(ui->userInput->text().toDouble());
+    }
+
+    else if (action == ">>")
+    {
+        m_result = static_cast<int>(m_result) >> static_cast<int>(ui->userInput->text().toDouble());
+    }
+
+    else if (action == "<<")
+    {
+        m_result = static_cast<int>(m_result) << static_cast<int>(ui->userInput->text().toDouble());
+    }
+
+    else if (action == "|")
+    {
+        m_result = static_cast<int>(m_result) | static_cast<int>(ui->userInput->text().toDouble());
+    }
+
+    else if (action == "&&")
+    {
+        m_result = static_cast<int>(m_result) & static_cast<int>(ui->userInput->text().toDouble());
+    }
+
+    else if (action == "~")
+    {
+        m_result = ~(static_cast<int>(m_result));
+    }
+
+    else if (action == "C")
+    {
+        m_result = 0;
+    }
+
     updateState();
 }
 
@@ -71,4 +140,9 @@ void MainWindow::on_actionBasic_triggered()
 void MainWindow::on_actionAdvanced_triggered()
 {
     updateCalculator(new AdvancedCalculator(this));
+}
+
+void MainWindow::on_actionProgram_triggered()
+{
+    updateCalculator(new ProgrammerCalculator(this));
 }

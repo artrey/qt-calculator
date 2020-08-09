@@ -26,6 +26,9 @@ add_executable(calculator
     basic_calculator.h
     basic_calculator.cpp
     basic_calculator.ui
+    programmer_calculator.cpp
+    programmer_calculator.h
+    programmer_calculator.ui
 )
 
 target_link_libraries(calculator PRIVATE Qt5::Widgets)
